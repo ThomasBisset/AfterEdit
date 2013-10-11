@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
+require 'rubygems'
 require 'RMagick'
+require 'mini_exiftool'
 
 basedir = '/home/thomas/Ruby/'
 inputdir = 'INPUT/'
@@ -9,10 +11,37 @@ outputdir = 'OUTPUT/'
 portrait = 'mark.png'
 landscape = 'mark.png'
 
+photographer = 'Thomas Bisset'
+email = 'tom@thomasbisset.co.uk'
+website = 'http://www.thomasbisset.co.uk'
+
 count = 0
 total = 0
 
 puts ''
+puts 'AfterEdit: Adding IPTC Data to images'
+for file in Dir.glob(basedir+inputdir+'*.{jpg,jpeg,JPG,JPEG}')
+	total = Dir.glob(basedir+inputdir+'*.{jpg,jpeg,JPG,JPEG}').count
+	count = count + 1
+	puts 'Adding ITPC Information to image %d of %d...' % [count, total]
+	data = MiniExiftool.new(file)
+	data["Author"] = photographer	
+	data["Creator"] = photographer
+	data["By-line"] = photographer
+	data["Credit"] = photographer
+	data["Contact"] = email
+	data["Copyright"] = 'Copyright %s %s. All rights reserved.' % [photographer, Time.now.year]
+	data["CopyrightNotice"] = 'Copyright %s %s. All rights reserved.' % [photographer, Time.now.year]
+	data["CreatorWorkEmail"] = email
+	data["CreatorWorkURL"] = website
+	data.save
+end
+puts 'Standard IPTC information entry complete'
+puts ''
+
+count = 0
+total = 0
+
 puts 'AfterEdit: Starting Copy to '+basedir+outputdir
 
 for file in Dir.glob(basedir+inputdir+'*.{jpg,jpeg,JPG,JPEG}')
