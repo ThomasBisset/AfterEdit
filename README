@@ -2,12 +2,8 @@ AfterShot README
 
 This script currently takes a folder of images, copies it to another directory,
 then resizes the images and add's watermarks so that it is ready for uploading
-to whichever website or photo-sharing service you use.
-
-I hope to add a means of adding appropriate IPTC data to each file before the 
-pictures are resized - this would give the original images an identifying "mark"
- (albeit an invisible one) to discourage redistribution and to aid 
-identification of the photographer. 
+to whichever website or photo-sharing service you use. It also adds appropriate 
+IPTC data to all the images. 
 
 I'm sure there are many better coders than me out there that can polish this up
 and add new features, if desired. I'm still (very slowly) learning Ruby so 
